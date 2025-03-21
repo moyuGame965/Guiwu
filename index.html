@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>古宅惊魂 - 中式鬼屋逃脱</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="background-overlay"></div>
+    <div id="game-container">
+        <div id="start-screen" class="screen">
+            <div class="title-container">
+                <h1>古宅惊魂</h1>
+                <div class="subtitle">寻找真相，逃出生天</div>
+            </div>
+            <div class="story-intro">
+                <p>农历七月十五，你在一场暴雨后意外醒来，发现自己身处一座古老的宅院中。</p>
+                <p>传说这里曾经发生过诡异的命案，而如今，你必须在天亮前找到出路，否则将永远被困在这里...</p>
+            </div>
+            <div class="game-tips">
+                <h3>游戏提示</h3>
+                <ul>
+                    <li><i class="fas fa-clock"></i> 在天亮前（60分钟）找到出路</li>
+                    <li><i class="fas fa-heart"></i> 保持精神状态，避免被吓晕</li>
+                    <li><i class="fas fa-search"></i> 搜索线索，收集有用物品</li>
+                    <li><i class="fas fa-ghost"></i> 小心随机遇到的诡异事件</li>
+                </ul>
+            </div>
+            <button id="start-btn" class="glow-button">开始游戏</button>
+        </div>
+        
+        <div id="game-screen" class="screen hidden">
+            <div id="header">
+                <div class="status-container">
+                    <div id="timer" class="status-item">
+                        <i class="fas fa-clock"></i>
+                        <span>剩余时间: <span id="time-left">60:00</span></span>
+                    </div>
+                    <div id="health" class="status-item">
+                        <i class="fas fa-heart"></i>
+                        <span>精神状态: <span id="health-value">100</span>%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="main-content">
+                <div class="room-info">
+                    <h2 id="room-name"></h2>
+                    <div id="scene-description"></div>
+                </div>
+                <div id="event-message" class="event-box"></div>
+                <div id="options-container"></div>
+            </div>
+            
+            <div id="inventory-section">
+                <div class="inventory-header">
+                    <h3><i class="fas fa-briefcase"></i> 物品栏</h3>
+                    <span class="inventory-tip">点击物品查看描述</span>
+                </div>
+                <div id="inventory"></div>
+            </div>
+
+            <div id="game-controls">
+                <button id="help-btn" class="control-btn">
+                    <i class="fas fa-question-circle"></i>
+                    帮助
+                </button>
+                <button id="sound-btn" class="control-btn">
+                    <i class="fas fa-volume-up"></i>
+                    音效
+                </button>
+            </div>
+        </div>
+        
+        <div id="game-over-screen" class="screen hidden">
+            <h2 id="ending-title"></h2>
+            <p id="ending-description"></p>
+            <div class="game-stats">
+                <h3>游戏统计</h3>
+                <ul>
+                    <li>生存时间: <span id="survival-time">0</span></li>
+                    <li>收集物品: <span id="items-collected">0</span></li>
+                    <li>遭遇事件: <span id="events-encountered">0</span></li>
+                </ul>
+            </div>
+            <button id="restart-btn" class="glow-button">重新开始</button>
+            <button id="share-btn" class="share-button">
+                <i class="fas fa-share-alt"></i>
+                分享结果
+            </button>
+        </div>
+
+        <div id="help-modal" class="modal hidden">
+            <div class="modal-content">
+                <h3>游戏帮助</h3>
+                <div class="help-content">
+                    <section>
+                        <h4>游戏目标</h4>
+                        <p>在60分钟内找到离开古宅的方法，同时保持精神状态不为零。</p>
+                    </section>
+                    <section>
+                        <h4>操作说明</h4>
+                        <ul>
+                            <li>点击选项探索房间</li>
+                            <li>收集并使用物品</li>
+                            <li>留意房间描述中的线索</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4>游戏提示</h4>
+                        <ul>
+                            <li>某些物品可以帮助恢复精神状态</li>
+                            <li>日记中可能包含重要线索</li>
+                            <li>注意观察每个房间的细节</li>
+                        </ul>
+                    </section>
+                </div>
+                <button id="close-help" class="modal-close">关闭</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="game.js"></script>
+</body>
+</html> 
