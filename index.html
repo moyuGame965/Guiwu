@@ -121,7 +121,140 @@
             </div>
         </div>
     </div>
+    <!-- 导航 -->
+   <div style="position: fixed; right: 2%; top: 20px;z-index: 1;">
+        <div onclick="gotoPage('https://moyugame965.github.io/GameList/')"
+            style="margin: 10px 0; line-height:24px;width:50px; height: 24px;border: 1px solid #f81922; background-color: #f81922; color: white; text-align: center;border-radius: 5px;cursor: pointer;font-size: 15px;">
+            更多</div>
+        <div onclick="gotoPage('https://moyugame965.github.io/Shopping/baodan.html')"
+            style="margin: 10px 0;line-height:24px;width:50px;height: 24px;border: 1px solid #f81922; background-color: #f81922; color: white; text-align: center;border-radius: 5px;cursor: pointer;font-size: 15px;">
+            商店</div>
+        <div onclick="gotoPage('https://moyugame965.github.io/Coupon/')"
+            style="margin: 10px 0;line-height:24px;width:50px;height: 24px;border: 1px solid #f81922; background-color: #f81922; color: #ffffff; text-align: center;border-radius: 5px;cursor: pointer;font-size: 15px;">
+            外卖</div>
+        <div onclick="gotoPage('https://moyugame965.github.io/Shopping/jiudianjiu.html')"
+            style="margin: 10px 0;line-height:24px;width:50px;height: 24px;border: 1px solid #f81922; background-color: #f81922; color: #ffffff; text-align: center;border-radius: 5px;cursor: pointer;font-size: 15px;">
+            9块9</div>
+    </div>
     
     <script src="game.js"></script>
+    <script>
+        function gotoPage(url) {
+            url && window.open(url);
+        }
+    </script>
+    <script>
+        // 创建全局样式和弹窗结构（兼容移动端）
+        document.addEventListener('DOMContentLoaded', function () {
+            const style = document.createElement('style');
+            style.textContent = `
+    .meal-alert-mask {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 9999;
+        display: none;
+    }
+    .meal-alert-box {
+        position: relative;
+        width: 80%;
+        max-width: 300px;
+        background: #fff;
+        border-radius: 12px;
+        padding: 20px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+    .meal-alert-box p {
+        color: #000000;
+    }
+    .meal-close-btn {
+        display: block;
+        margin: 15px auto 0;
+        padding: 8px 20px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 25px;
+        font-size: 12px;
+        touch-action: manipulation;
+    }
+`;
+            document.head.appendChild(style);
+
+            const alertHTML = `
+    <div class="meal-alert-mask">
+        <div class="meal-alert-box">
+            <h3>🍴 用餐时间到！</h3>
+            <p>记得及时补充能量哦~</p>
+            <div style="display: flex;">
+                <button class="meal-close-btn" style="background-color: #ffffff;color: #888888;border: 1px solid #888888;">关闭</button>
+                <button class="meal-close-btn meal-open-btn">优惠卷</button>
+            </div>
+        </div>
+    </div>
+`;
+            document.body.insertAdjacentHTML('beforeend', alertHTML);
+        });
+
+        // 弹窗控制逻辑 
+        const mealAlert = {
+            init() {
+                this.bindEvents();
+                this.startTimer();
+                // this.showAlert();
+            },
+
+            bindEvents() {
+                document.addEventListener('click', (e) => {
+                    if (e.target.closest('.meal-close-btn')) {
+                        this.hideAlert();
+                    }
+
+                    if (e.target.closest('.meal-open-btn')) {
+                        gotoPage('https://moyugame965.github.io/Coupon/');
+                    }
+                });
+            },
+
+            showAlert() {
+                document.querySelector('.meal-alert-mask').style.display = 'block';
+            },
+
+            hideAlert() {
+                document.querySelector('.meal-alert-mask').style.display = 'none';
+            },
+
+            checkTime() {
+                const now = new Date();
+                const currentHour = now.getHours();
+                const currentMin = now.getMinutes();
+
+                // 在11:00和17:00整点触发，误差控制在1分钟内 
+                if ((currentHour === 11 || currentHour === 12 || currentHour === 17 || currentHour === 18) && currentMin === 0) {
+                    this.showAlert();
+                }
+            },
+
+            startTimer() {
+                // 每分钟检查一次时间 
+                setInterval(() => this.checkTime(), 60000);
+                // 初始化立即检查（避免页面打开时正好处于目标时间）
+                this.checkTime();
+            }
+        };
+
+        // 初始化 
+        mealAlert.init();
+        // setTimeout(() => {
+        //     mealAlert.showAlert();
+        // }, 2000);
+
+    </script>
 </body>
 </html> 
